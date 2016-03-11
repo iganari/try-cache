@@ -1,0 +1,82 @@
+---
+- name: get epel repo
+  sudo: yes
+  yum: name=epel-release state=installed
+  tags: epel
+
+- name: install packages from base
+  sudo: yes
+  yum: name="{{item}}" state=latest
+  with_items:
+  - curl
+  - openssl-devel  
+  - tree
+  - telnet
+  - nkf
+  - mlocate
+  - expect
+  - readline-devel
+  - dstat
+  tags: packages base
+
+- name: install packages from epel
+  sudo: yes
+  yum: name="{{item}}" state=latest enablerepo=epel
+  with_items:
+  - tig
+  - iftop
+  - htop
+  - sl
+  tags: packages epel
+
+- name: be sure ntp is installed
+  sudo: yes
+  yum: name=ntp state=installed
+  tags: ntp
+
+### - name: be sure ntp is configured
+###   template: src=ntp.conf.j2 dest=/etc/ntp.conf
+###   notify:
+###     - restart ntpd
+###   tags: ntp
+
+- name: be sure ntpd is running and enabled
+  sudo: yes
+  service: name=ntpd state=running enabled=yes
+  tags: ntp
+
+### - name: install libselinux=python
+###   sudo: yes
+###   yum: name=libselinux-python state=installed
+### 
+### - name: disable SELinux
+###   sudo: yes
+###   selinux: state=disabled
+### 
+### - name: reboot!
+###   sudo: yes
+###   command: shutdown -ry 0 
+### 
+### - name: wait for SSH port down
+###   sudo: yes
+###   local_action: wait_for host={{ inventory_hostname }} port=22 state=stopped
+### 
+### - name: wait for SSH port up
+###   sudo: yes
+###   wait_for: host={{ inventory_hostname }} port=22 state=started delay=30
+###   delegate_to: 127.0.0.1
+### 
+### - name: test connection (after reboot)
+###   sudo: yes
+###   ping:
+###   
+### - name: disable ipv6
+###   sudo: yes
+###   lineinfile: >
+###     dest=/etc/sysctl.conf
+###     line="{{item}}"
+###   with_items:
+###     - '# ipv6 disable'
+###     - 'net.ipv6.conf.all.disable_ipv6 = 1'
+###     - 'net.ipv6.conf.default.disable_ipv6 = 1'
+###   notify: network restart
