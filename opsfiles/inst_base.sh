@@ -20,9 +20,9 @@ chkconfig ip6tables off
 yum remove NetworkManager -y 
 
 
-# upgrade centos
-yum upgrade -y
-yum update bash -y
+### # upgrade centos
+### yum upgrade -y
+### yum update bash -y
 
 
 # Installation of basic commands
