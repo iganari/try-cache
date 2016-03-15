@@ -34,8 +34,8 @@ Vagrant.configure(2) do |config|
     :group  => 'root', \
     :mount_options => ['dmode=755,fmode=755'] 
 
-  config.vm.provision :shell, :path => "../0-base.sh"
-  config.vm.provision :shell, :path => "../1-inst_memcached.sh"
+  config.vm.provision :shell, :path => "inst_base.sh"
+  config.vm.provision :shell, :path => "inst_memcached.sh"
 
   ### config.vm.provision "ansible" do |ansible|
   ###   ansible.playbook = "playbook/site.yml"

@@ -20,9 +20,9 @@ chkconfig ip6tables off
 yum remove NetworkManager -y 
 
 
-# upgrade centos
-yum upgrade -y
-yum update bash -y
+### # upgrade centos
+### yum upgrade -y
+### yum update bash -y
 
 
 # Installation of basic commands
@@ -33,7 +33,8 @@ yum install -y vim wget openssl openssl-devel tree telnet nkf mlocate expect ntp
 yum install yum-plugin-priorities -y
 yum install epel-release -y
 cd /tmp
-wget  http://rpms.famillecollet.com/enterprise/remi-release-6.rpm http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+wget  http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+wget  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 rpm -ivh *.rpm
 
 # Rewriting of Priority
