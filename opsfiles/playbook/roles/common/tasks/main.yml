@@ -41,38 +41,38 @@
   service: name=ntpd state=running enabled=yes
   tags: ntp
 
-### - name: install libselinux=python
-###   sudo: yes
-###   yum: name=libselinux-python state=installed
-### 
-### - name: disable SELinux
-###   sudo: yes
-###   selinux: state=disabled
-### 
-### - name: reboot!
-###   sudo: yes
-###   command: shutdown -ry 0 
-### 
-### - name: wait for SSH port down
-###   sudo: yes
-###   local_action: wait_for host={{ inventory_hostname }} port=22 state=stopped
-### 
-### - name: wait for SSH port up
-###   sudo: yes
-###   wait_for: host={{ inventory_hostname }} port=22 state=started delay=30
-###   delegate_to: 127.0.0.1
-### 
-### - name: test connection (after reboot)
-###   sudo: yes
-###   ping:
-###   
-### - name: disable ipv6
-###   sudo: yes
-###   lineinfile: >
-###     dest=/etc/sysctl.conf
-###     line="{{item}}"
-###   with_items:
-###     - '# ipv6 disable'
-###     - 'net.ipv6.conf.all.disable_ipv6 = 1'
-###     - 'net.ipv6.conf.default.disable_ipv6 = 1'
-###   notify: network restart
+- name: install libselinux=python
+  sudo: yes
+  yum: name=libselinux-python state=installed
+
+- name: disable SELinux
+  sudo: yes
+  selinux: state=disabled
+
+- name: reboot!
+  sudo: yes
+  command: shutdown -ry 0 
+
+- name: wait for SSH port down
+  sudo: yes
+  local_action: wait_for host={{ inventory_hostname }} port=22 state=stopped
+
+- name: wait for SSH port up
+  sudo: yes
+  wait_for: host={{ inventory_hostname }} port=22 state=started delay=30
+  delegate_to: 127.0.0.1
+
+- name: test connection (after reboot)
+  sudo: yes
+  ping:
+  
+- name: disable ipv6
+  sudo: yes
+  lineinfile: >
+    dest=/etc/sysctl.conf
+    line="{{item}}"
+  with_items:
+    - '# ipv6 disable'
+    - 'net.ipv6.conf.all.disable_ipv6 = 1'
+    - 'net.ipv6.conf.default.disable_ipv6 = 1'
+  notify: network restart
