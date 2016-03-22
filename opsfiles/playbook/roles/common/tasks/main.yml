@@ -1,7 +1,11 @@
 ---
-- name: get epel repo
-  yum: name=epel-release state=installed
-  tags: epel
+- name: get repos
+  yum: name="{{item}}" state=present
+  with_items:
+  - http://ftp-srv2.kddilabs.jp/Linux/distributions/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
+  - http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+  - http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+  tags: repo
 
 - name: install packages from base
   yum: name="{{item}}" state=latest
@@ -41,38 +45,31 @@
   service: name=ntpd state=running enabled=yes
   tags: ntp
 
-### - name: install libselinux=python
-###   sudo: yes
-###   yum: name=libselinux-python state=installed
-### 
-### - name: disable SELinux
-###   sudo: yes
-###   selinux: state=disabled
-### 
-### - name: reboot!
-###   sudo: yes
-###   command: shutdown -ry 0 
-### 
-### - name: wait for SSH port down
-###   sudo: yes
-###   local_action: wait_for host={{ inventory_hostname }} port=22 state=stopped
-### 
-### - name: wait for SSH port up
-###   sudo: yes
-###   wait_for: host={{ inventory_hostname }} port=22 state=started delay=30
-###   delegate_to: 127.0.0.1
-### 
-### - name: test connection (after reboot)
-###   sudo: yes
-###   ping:
-###   
-### - name: disable ipv6
-###   sudo: yes
-###   lineinfile: >
-###     dest=/etc/sysctl.conf
-###     line="{{item}}"
-###   with_items:
-###     - '# ipv6 disable'
-###     - 'net.ipv6.conf.all.disable_ipv6 = 1'
-###     - 'net.ipv6.conf.default.disable_ipv6 = 1'
-###   notify: network restart
+- name: install libselinux=python
+  yum: name=libselinux-python state=installed
+
+- name: disable SELinux
+  selinux: state=disabled
+
+- name: reboot!
+  command: shutdown -ry 0 
+
+- name: wait for SSH port down
+  local_action: wait_for host={{ inventory_hostname }} port=22 state=stopped
+
+- name: wait for SSH port up
+  wait_for: host={{ inventory_hostname }} port=22 state=started delay=30
+  delegate_to: 127.0.0.1
+
+- name: test connection (after reboot)
+  ping:
+  
+- name: disable ipv6
+  lineinfile: >
+    dest=/etc/sysctl.conf
+    line="{{item}}"
+  with_items:
+    - '# ipv6 disable'
+    - 'net.ipv6.conf.all.disable_ipv6 = 1'
+    - 'net.ipv6.conf.default.disable_ipv6 = 1'
+  notify: network restart
