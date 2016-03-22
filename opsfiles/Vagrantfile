@@ -18,14 +18,38 @@ Vagrant.configure(2) do |config|
   ###   ### box setting
   ###   # server.vm.box = "bento/centos-6.7"
   ### end
+  ### config.vm.define :svr03 do |server|
+  ###   ### determined specific IP.
+  ###   server.vm.network "private_network", ip: "192.168.33.33"
+  ###   ### vbox name
+  ###   server.vm.hostname = 'svr03'
+  ###   ### box setting
+  ###   # server.vm.box = "bento/centos-6.7"
+  ### end
+  ### config.vm.define :svr04 do |server|
+  ###   ### determined specific IP.
+  ###   server.vm.network "private_network", ip: "192.168.33.34"
+  ###   ### vbox name
+  ###   server.vm.hostname = 'svr04'
+  ###   ### box setting
+  ###   # server.vm.box = "bento/centos-6.7"
+  ### end
+  ### config.vm.define :svr05 do |server|
+  ###   ### determined specific IP.
+  ###   server.vm.network "private_network", ip: "192.168.33.35"
+  ###   ### vbox name
+  ###   server.vm.hostname = 'svr05'
+  ###   ### box setting
+  ###   # server.vm.box = "bento/centos-6.7"
+  ### end
 
-  config.vm.provider "virtualbox" do |vb|
-    ### vagrant hostname 
-    # vb.name = "try-memcached"
-    vb.customize ['modifyvm', :id,"--memory", 512]
-    vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
-    vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
-  end  
+  ### config.vm.provider "virtualbox" do |vb|
+  ###   ### vagrant hostname 
+  ###   # vb.name = "try-memcached"
+  ###   vb.customize ['modifyvm', :id,"--memory", 512]
+  ###   vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
+  ###   vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
+  ### end  
  
   ### settitng of synced_folder
   config.vm.synced_folder "../", "/srv/try-memcached", \
