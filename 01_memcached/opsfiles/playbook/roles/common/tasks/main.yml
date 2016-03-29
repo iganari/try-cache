@@ -73,7 +73,7 @@
     - 'net.ipv6.conf.all.disable_ipv6 = 1'
     - 'net.ipv6.conf.default.disable_ipv6 = 1'
   notify: restart network
-
+         
 ### - name: change cli color
 ###   lineinfile: >
 ###     dest=/etc/profile
