@@ -11,6 +11,7 @@ memcachedを実際に立ち上げて、挙動を確認してみる。
 $ git clone repo.git
 $ cd try-memcached/opsfiles
 $ vagrant up
+$ chmod 600 ssh/id_rsa-try-memcached
 $ ansible-playbook --private-key='ssh/id_rsa-try-memcached' -i playbook/staging playbook/site.yml
 ```
 

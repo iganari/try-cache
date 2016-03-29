@@ -4,7 +4,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define :svr01 do |server|
     ### determined specific IP.
-    server.vm.network "private_network", ip: "192.168.33.31"
+    server.vm.network "private_network", ip: "192.168.33.41"
     ### vbox name
     server.vm.hostname = 'svr01'
     ### box setting

@@ -2,4 +2,3 @@
 - hosts: vagrant-servers
   roles:
     - common
-###    - jenkins
