@@ -9,5 +9,5 @@ if ! [ `which ansible` ]; then
 fi
 
 ### ansible playbook
-DIR='/srv/try-memcached/opsfiles/playbook'
+DIR='/srv/memcached/opsfiles/playbook'
 ansible-playbook -i ${DIR}/staging ${DIR}/site.yml
