@@ -1,0 +1,10 @@
+---
+#
+# roles/httpd/handlers/main.yml
+#
+
+- name: install apache
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes
