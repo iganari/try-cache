@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+# set -x
 
 yum_install_ansible()
 {
@@ -31,6 +31,19 @@ ansible --version
 ### ansible-playbook 
 playbook_dir='/develop/repcached/opsfiles/vagrant/playbook'
 
-ansible-playbook -i ${playbook_dir}/vagrant ${playbook_dir}/webserver.yaml
+if [ "${1}" = '' ];then
+  echo "引数をいれてね"
+elif [ "${1}" = "rep01" ];then
+  echo "${1}"
+  ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep01" ${playbook_dir}/webserver.yaml
+elif [ "${1}" = "rep02" ];then
+  echo "${1}"
+  ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep02" ${playbook_dir}/webserver.yaml
+else
+  echo "引数が間違っているよ"
+fi
 
-rm -rfv ${playbook_dir}/webserver.retry
+# ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep02" ${playbook_dir}/webserver.yaml
+
+# rm -rfv ${playbook_dir}/webserver.retry
+# memcached -h | head -n2
