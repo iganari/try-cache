@@ -45,5 +45,5 @@ fi
 
 # ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep02" ${playbook_dir}/webserver.yaml
 
-# rm -rfv ${playbook_dir}/webserver.retry
+rm -rfv ${playbook_dir}/webserver.retry
 # memcached -h | head -n2
