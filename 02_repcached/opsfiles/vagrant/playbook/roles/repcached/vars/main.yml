@@ -1,0 +1,9 @@
+---
+#
+# roles/repcached/vars/main.yml
+#
+
+repcached:
+  rep01_ip: 192.168.2.71
+  rep02_ip: 192.168.2.72
+
