@@ -72,6 +72,7 @@
 
 - name: force unuse selinux
   shell: setenforce 0 
+  ignore_errors: true
 
 - name: bash color custom
   lineinfile: >
