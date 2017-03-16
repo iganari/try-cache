@@ -8,4 +8,5 @@
   #   - node: repcached
   roles:
     - common
+    - repcached
     # - vagrant
