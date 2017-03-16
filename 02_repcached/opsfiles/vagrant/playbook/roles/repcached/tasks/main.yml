@@ -93,4 +93,7 @@
   when: hosts == "rep02"
 
 - name: repcached restart
-  service: name=repcached state=restarted
+  service: 
+    name: repcached
+    state: restarted
+    enabled: yes
