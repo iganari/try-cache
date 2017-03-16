@@ -54,14 +54,6 @@
     name: memcached
     createhome: no
 
-- name: setted repcached config
-  copy: 
-    src: roles/repcached/templates/etc_sysconfig_repcached.j2 
-    dest: /etc/sysconfig/repcached
-    owner: root
-    group: root
-    mode: 755
-
 - name: setted repcached init
   copy: 
     src: roles/repcached/templates/etc_initd_repcached.j2
@@ -80,14 +72,14 @@
 
 - name: rewrite repcached config on rep01
   lineinfile: 
-    dest: '/etc/sysconfig/repcached'
+    dest: '/etc/init.d/repcached'
     regexp: 'NODE_IP'
     line: "REPHOST={{ repcached.rep02_ip }}"
   when: hosts == "rep01"
 
 - name: rewrite repcached config on rep02
   lineinfile: 
-    dest: '/etc/sysconfig/repcached'
+    dest: '/etc/init.d/repcached'
     regexp: 'NODE_IP'
     line: "REPHOST={{ repcached.rep01_ip }}"
   when: hosts == "rep02"
