@@ -1,0 +1,12 @@
+---
+#
+# webservers.yaml
+#
+
+- hosts: vagrant
+  # vars:
+  #   - node: repcached
+  roles:
+    - common
+    - repcached
+    # - vagrant

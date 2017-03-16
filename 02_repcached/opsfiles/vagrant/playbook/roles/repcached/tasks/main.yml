@@ -1,0 +1,91 @@
+---
+#
+# roles/repcached/tasks/main.yml
+#
+
+- name: add repcached ip on hosts
+  lineinfile: >
+    dest='/etc/hosts'
+    line="{{ item }}"
+  with_items:
+  - "{{ repcached.rep01_ip }} rep01"
+  - "{{ repcached.rep02_ip }} rep02"
+
+- name: add package from yum
+  yum: name="{{ item }}" update_cache=yes state=latest enablerepo=epel 
+  with_items:
+  - gcc
+  - libevent-devel
+
+- name: download (あとでlocalにおいておく)
+  shell: wget http://sourceforge.net/projects/repcached/files/repcached/2.2.1-1.2.8/memcached-1.2.8-repcached-2.2.1.tar.gz -O /opt/memcached-1.2.8-repcached-2.2.1.tar.gz
+
+- name: untar repcached
+  shell: cd /opt && tar zxvf memcached-1.2.8-repcached-2.2.1.tar.gz
+
+- name: configure 
+  shell: cd /opt/memcached-1.2.8-repcached-2.2.1; ./configure --enable-replication
+
+- name: chg owner of repcacahed
+  file:
+    path: /opt/memcached-1.2.8-repcached-2.2.1
+    owner: root
+    group: root
+    mode: 755
+    recurse: yes
+
+- name: make by make module
+  make:
+    chdir: /opt/memcached-1.2.8-repcached-2.2.1
+
+- name: make install by make module
+  make:
+    chdir: /opt/memcached-1.2.8-repcached-2.2.1
+    target: install
+
+- name: create symlink
+  file:  
+    src: /opt/memcached-1.2.8-repcached-2.2.1
+    dest: /opt/repcached
+    state: link
+
+- name: create user for repcached
+  user:
+    name: memcached
+    createhome: no
+
+- name: setted repcached init
+  copy: 
+    src: roles/repcached/templates/etc_initd_repcached.j2
+    dest: /etc/init.d/repcached
+    owner: root
+    group: root
+    mode: 755
+
+- name: make pid directory
+  file:
+    path: /var/run/memcached
+    state: directory
+    mode: 0777
+    owner: root
+    group: root
+
+- name: rewrite repcached config on rep01
+  lineinfile: 
+    dest: '/etc/init.d/repcached'
+    regexp: 'NODE_IP'
+    line: "REPHOST={{ repcached.rep02_ip }}"
+  when: hosts == "rep01"
+
+- name: rewrite repcached config on rep02
+  lineinfile: 
+    dest: '/etc/init.d/repcached'
+    regexp: 'NODE_IP'
+    line: "REPHOST={{ repcached.rep01_ip }}"
+  when: hosts == "rep02"
+
+- name: repcached restart
+  service: 
+    name: repcached
+    state: restarted
+    enabled: yes
