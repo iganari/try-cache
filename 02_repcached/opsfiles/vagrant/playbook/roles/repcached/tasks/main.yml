@@ -84,6 +84,14 @@
     line: "REPHOST={{ repcached.rep01_ip }}"
   when: hosts == "rep02"
 
+- name: make memcached-tool link
+  file:
+    src: /opt/repcached/scripts/memcached-tool
+    dest: /usr/bin/memcached-tool
+    owner: root
+    group: root
+    state: link
+
 - name: repcached restart
   service: 
     name: repcached
