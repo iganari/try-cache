@@ -9,6 +9,9 @@
 - name: install epel
   yum: name=epel-release 
 
+- name: install remi repository
+  shell: rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+
 - name: stop unnecessary service
   service: name="{{ item }}" state=stopped enabled=no
   with_items:
