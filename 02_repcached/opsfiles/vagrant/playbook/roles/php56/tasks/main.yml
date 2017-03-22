@@ -3,10 +3,17 @@
 # roles/php56/tasks/main.yml
 #
 
-- name: force color prompt
-  lineinfile: >
-    dest='/home/vagrant/.bashrc'
-    state=present
-    backrefs=yes
-    regexp='#force_color_prompt=yes'
-    line='force_color_prompt=yes'
+- name: install php 5.6
+  yum: 
+    name: "{{ item }}"
+    update_cache: yes
+    state: latest
+    enablerepo: remi,remi-php56
+  with_itmes:
+  - php
+  - php-devel
+  - php-mbstring
+  - php-pdo
+  - php-gd
+  - php-pear
+  - php-pecl-memcached
