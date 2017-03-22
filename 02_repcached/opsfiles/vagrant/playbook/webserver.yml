@@ -11,4 +11,4 @@
     - repcached
     - httpd
     # - php56
-    # - vagrant
+    - vagrant
