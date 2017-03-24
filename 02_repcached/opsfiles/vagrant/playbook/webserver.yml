@@ -9,4 +9,6 @@
   roles:
     - common
     - repcached
-    # - vagrant
+    - httpd
+    # - php56
+    - vagrant

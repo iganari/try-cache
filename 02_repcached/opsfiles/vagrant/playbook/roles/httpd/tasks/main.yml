@@ -1,0 +1,11 @@
+---
+#
+# roles/httpd/tasks/main.yml
+#
+
+- name: install apache
+  yum:
+    name: httpd
+    enablerepo: epel
+    state: latest
+  notify: install apache

@@ -35,15 +35,15 @@ if [ "${1}" = '' ];then
   echo "引数をいれてね"
 elif [ "${1}" = "rep01" ];then
   echo "${1}"
-  ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep01" ${playbook_dir}/webserver.yaml
+  ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep01" ${playbook_dir}/webserver.yml
 elif [ "${1}" = "rep02" ];then
   echo "${1}"
-  ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep02" ${playbook_dir}/webserver.yaml
+  ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep02" ${playbook_dir}/webserver.yml
 else
   echo "引数が間違っているよ"
 fi
 
-# ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep02" ${playbook_dir}/webserver.yaml
+# ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep02" ${playbook_dir}/webserver.yml
 
-# rm -rfv ${playbook_dir}/webserver.retry
+rm -rfv ${playbook_dir}/webserver.retry
 # memcached -h | head -n2
