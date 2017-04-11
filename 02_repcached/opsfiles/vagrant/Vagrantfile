@@ -27,7 +27,10 @@ Vagrant.configure(2) do |config|
       :owner  => 'vagrant', \
       :group  => 'vagrant', \
       :mount_options => ['dmode=755,fmode=755']
-    server.vm.provision :shell, inline: "/bin/bash /develop/repcached/opsfiles/vagrant/provision.sh rep01"
+    server.vm.provision :shell, :inline => <<SCRIPT
+      cd /develop/repcached/opsfiles/vagrant/
+      /bin/bash provision.sh rep01
+SCRIPT
   end
 
   config.vm.define :rep02 do |server|
@@ -52,6 +55,9 @@ Vagrant.configure(2) do |config|
       :owner  => 'vagrant', \
       :group  => 'vagrant', \
       :mount_options => ['dmode=755,fmode=755']
-    server.vm.provision :shell, inline: "/bin/bash /develop/repcached/opsfiles/vagrant/provision.sh rep02"
+    server.vm.provision :shell, :inline => <<SCRIPT
+      cd /develop/repcached/opsfiles/vagrant/
+      /bin/bash provision.sh rep02
+SCRIPT
   end
 end
