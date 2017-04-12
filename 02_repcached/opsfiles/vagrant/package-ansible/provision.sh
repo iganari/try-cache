@@ -29,7 +29,7 @@ ansible --version
 
 
 ### ansible-playbook 
-playbook_dir='/develop/repcached/opsfiles/vagrant/playbook'
+playbook_dir='/develop/repcached/opsfiles/vagrant/package-ansible'
 
 if [ "${1}" = '' ];then
   echo "引数をいれてね"
@@ -43,7 +43,6 @@ else
   echo "引数が間違っているよ"
 fi
 
-# ansible-playbook -i ${playbook_dir}/vagrant --extra-vars "hosts=rep02" ${playbook_dir}/webserver.yml
 
 rm -rfv ${playbook_dir}/webserver.retry
 # memcached -h | head -n2
