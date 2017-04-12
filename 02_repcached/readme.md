@@ -47,8 +47,8 @@ $ ps aux | grep memcached
 $ sudo memcached-tool localhost:11211
 
 ### 詳細
-$ memcached-tool localhost:11211 display  
-$ memcached-tool localhost:11211          # オプションなしは"display"と同じ
-$ memcached-tool localhost:11211 stats 
-$ memcached-tool localhost:11211 dump     # 全てのキーとバリューが画面にダンプされます。
+$ sudo memcached-tool localhost:11211 display  
+$ sudo memcached-tool localhost:11211          # オプションなしは"display"と同じ
+$ sudo memcached-tool localhost:11211 stats 
+$ sudo memcached-tool localhost:11211 dump     # 全てのキーとバリューが画面にダンプされます。
 ```
