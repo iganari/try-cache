@@ -10,5 +10,5 @@
     - common
     - repcached
     - httpd
-    # - php56
+    - php56
     - vagrant
