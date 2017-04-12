@@ -8,4 +8,13 @@
     name: httpd
     enablerepo: epel
     state: latest
+
+- name: copy repcached.apache.config
+  copy: >
+    src=roles/httpd/templates/repcached.conf.j2
+    dest=/etc/httpd/conf.d/repcached.conf
+    backup=yes
+    group=root
+    owner=root
+    mode=0644    
   notify: install apache

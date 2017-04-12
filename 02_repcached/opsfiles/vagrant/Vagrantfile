@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
       :group  => 'vagrant', \
       :mount_options => ['dmode=755,fmode=755']
     server.vm.provision :shell, :inline => <<SCRIPT
-      cd /develop/repcached/opsfiles/vagrant/
+      cd /develop/repcached/opsfiles/vagrant/package-ansible/
       /bin/bash provision.sh rep01
 SCRIPT
   end
@@ -56,7 +56,7 @@ SCRIPT
       :group  => 'vagrant', \
       :mount_options => ['dmode=755,fmode=755']
     server.vm.provision :shell, :inline => <<SCRIPT
-      cd /develop/repcached/opsfiles/vagrant/
+      cd /develop/repcached/opsfiles/vagrant/package-ansible/
       /bin/bash provision.sh rep02
 SCRIPT
   end

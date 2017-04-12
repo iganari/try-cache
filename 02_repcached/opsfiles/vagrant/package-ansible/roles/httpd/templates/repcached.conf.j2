@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+    # ServerName  repcached.hejda.org
+    # ServerAlias www.repcached.hejda.org
+    ServerAdmin iganari
+    
+    CustomLog "|/usr/sbin/rotatelogs     /var/log/httpd/repcached_access_log.%Y%m%d 86400 540" combined env=!no_log
+    ErrorLog  "|/usr/sbin/rotatelogs     /var/log/httpd/repcached_error_log.%Y%m%d 86400 540"
+    
+    DocumentRoot                         /develop/repcached/
+    # SetEnv WP_ENV production
+    <Directory /develop/repcached>
+        Options -Indexes FollowSymLinks
+        #SSLRequireSSL
+        AllowOverride All
+    </Directory>
+</VirtualHost>
